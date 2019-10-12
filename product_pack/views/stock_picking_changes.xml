@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+    <record model="ir.ui.view" id="view_move_picking_tree_inh">
+            <field name="name">stock.picking.tree.inherit2</field>
+            <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_uom_qty']" position="after">
+                <field name="from_pack" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_qty']" position="attributes">
+                <attribute name="attrs">{'readonly':[('from_pack','=',True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_uom']" position="attributes">
+                <attribute name="attrs">{'readonly':[('from_pack','=',True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="view_stock_picking_form_inh">
+            <field name="name">stock.picking.form.inherit2</field>
+            <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[2]/field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+                <field name="is_pack" invisible="1"/>
+                <field name="from_pack" invisible="1"/>
+                    <field name="open_pack" attrs="{'invisible':[('is_pack','=',False)]}" />
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</openerp>
