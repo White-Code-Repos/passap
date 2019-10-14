@@ -11,3 +11,5 @@ class VendorEvaluationCT(models.Model):
     delivery_date = fields.Date(string='Delivery Date')
     quantity_delivery = fields.Float(string='Quantity Delivery')
     price = fields.Float(string='Price')
+
+    vendor_id = fields.Many2one('res.partner','Vendor')
