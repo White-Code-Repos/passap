@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    <record model="ir.ui.view" id="vendor_evaluation_tree">
+      <field name="name">vendor evaluation tree view</field>
+      <field name="model">vendor.evaluation</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="order_number"/>
+          <field name="quality_delivery"/>
+          <field name="delivery_date"/>
+          <field name="quantity_delivery"/>
+          <field name="price"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="vendor_evaluation_form">
+      <field name="name">vendor evaluation form view</field>
+      <field name="model">vendor.evaluation</field>
+      <field name="arch" type="xml">
+        <form string="description">
+          <sheet>
+            <group>
+              <group>
+                <field name="order_number"/>
+                <field name="quality_delivery"/>
+                <field name="delivery_date"/>
+                <field name="quantity_delivery"/>
+                <field name="price"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="vendor_evaluation_action">
+      <field name="name">Vendor Evaluation</field>
+      <field name="res_model">vendor.evaluation</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Vendor Evaluation" id="vendor_evaluation_menu_root"/>
+
+    <menuitem name="Vendor Evaluation" id="vendor_evaluation_menu" parent="vendor_evaluation_menu_root"
+              action="vendor_evaluation_action"/>
+
+  </data>
+</odoo>
