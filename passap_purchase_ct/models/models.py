@@ -7,6 +7,7 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def button_confirm(self):
+        super(PurchaseOrder, self).button_confirm()
         for order in self:
             if order.order_line:
                 for line in order.order_line:
