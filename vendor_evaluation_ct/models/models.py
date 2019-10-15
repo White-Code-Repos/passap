@@ -12,4 +12,4 @@ class VendorEvaluationCT(models.Model):
     quantity_delivery = fields.Float(string='Quantity Delivery')
     price = fields.Float(string='Price')
 
-    vendor_id = fields.Many2one('res.partner','Vendor')
+    vendor_id = fields.Many2one('res.partner','Vendor', domain=[('supplier', '=', True)])
