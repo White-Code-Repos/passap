@@ -24,7 +24,7 @@ class MonthPlaneLine(models.Model):
     _name = 'month.plan.line'
 
     business_line =fields.Many2one('account.analytic.account','Business Line')
-    quantity = fields.Integer('Quantities to supply',readonly=True)
+    quantity = fields.Integer('Quantities to supply')
     product_id = fields.Many2one('product.product' ,'Product')
     qty = fields.Integer('QTY')
 
