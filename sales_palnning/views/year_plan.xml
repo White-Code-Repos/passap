@@ -38,7 +38,7 @@
                 <field name="responsible" attrs="{'readonly': [('state', '=', 'approved')]}"/>
              </group>
              <group>
-                <field name='source' attrs="{'invisible':[('source','=','')]}" />
+                <field name='source' attrs="{'invisible':[('source','=','')]}" readonly="True" />
              </group>
             </group>
             <notebook>

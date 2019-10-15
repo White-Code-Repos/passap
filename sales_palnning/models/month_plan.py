@@ -4,6 +4,10 @@ from datetime import datetime
 class MonthPlane(models.Model):
     _name = 'month.plan'
 
+    state = fields.Selection([('draft', 'Draft'), ('mangerApp', 'To Manager Approve'), ('approved', 'Approved')],
+                             string='Status',
+                             required=True, readonly=True, copy=False, default='draft')
+
     yearly_plan = fields.Many2one('year.plan','Yearly Plan' ,required=True)
     month = fields.Selection([('jan','Jan'),
                               ('feb','Feb'),
@@ -19,6 +23,53 @@ class MonthPlane(models.Model):
                               ('dec','Dec')] ,'Month',required=True)
     source = fields.Many2one('month.plan','Version Of',readonly=True)
     plan_m_line_ids = fields.One2many('month.plan.line', 'month_plan_id')
+
+    # Methods
+
+    @api.multi
+    def action_submit_plan(self):
+        self.write({'state': 'mangerApp'})
+    @api.multi
+    def action_approve_plan(self):
+        self.write({'state':'approved'})
+
+    @api.multi
+    def action_adjust_plan(self):
+        list = []
+        for l in self.plan_m_line_ids:
+            line = [0, 0, {
+                'business_line': l.business_line.id,
+                'quantity': l.quantity,
+                'product_id': l.product_id.id,
+                'qty': l.qty,
+            }]
+            list.append(line)
+        vals = {
+            'state': 'draft',
+            'yearly_plan': self.yearly_plan.id,
+            'month': self.month,
+            'plan_m_line_ids': list,
+            'source': self.id,
+        }
+        new_obj = self.env['month.plan'].create(vals)
+
+    @api.multi
+    def open_versions(self):
+            plan_ids = self.env['month.plan'].search([('source', '=', self.id)])
+            list = []
+            for id in plan_ids:
+                list.append(id)
+
+            return {
+                'name': 'Versions',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'res_model': 'year.plan',
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'domain': [('id', 'in', plan_ids.ids)],
+            }
+
 
 class MonthPlaneLine(models.Model):
     _name = 'month.plan.line'

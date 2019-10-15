@@ -19,29 +19,29 @@
       <field name="model">month.plan</field>
       <field name="arch" type="xml">
         <form string="description">
-        <!--
+
         <header>
-                <button name="action_submit_plan" states="draft" string="Submit to CEO" groups='sales_team.group_sale_manager' type="object" class="oe_highlight o_expense_sheet_submit"/>
-                <button name="action_approve_plan" states="ceoApp" string="Approve" groups='sales_palnning.group_ceo' type="object" class="oe_highlight o_expense_sheet_submit"/>
-                <button name="action_adjust_plan" states="approved" string="Adjust Plan" groups='sales_palnning.group_ceo' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <button name="action_submit_plan" states="draft" string="Submit to Manager" groups='sales_palnning.group_plan_user' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <button name="action_approve_plan" states="mangerApp" string="Approve" groups='sales_palnning.group_plan_manager' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <button name="action_adjust_plan" states="approved" string="Adjust Plan" groups='sales_palnning.group_plan_manager' type="object" class="oe_highlight o_expense_sheet_submit"/>
                 <field name="state" widget="statusbar"/>
-        </header> -->
+        </header>
           <sheet>
                 <div class="oe_button_box" name="button_box">
-                    <!--<button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
-                    </button>-->
+                    <button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
+                    </button>
                 </div>
             <group>
              <group>
-                <field name="yearly_plan"/>
-                <field name="month"/>
+                <field name="yearly_plan" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                <field name="month" attrs="{'readonly': [('state', '=', 'approved')]}"/>
              </group>
              <group>
-                <field name='source' attrs="{'invisible':[('source','=','')]}" />
+                <field name='source' attrs="{'invisible':[('source','=','')]}" readonly="True"/>
              </group>
             </group>
             <notebook>
-                <page string='Plan' >
+                <page string='Plan' attrs="{'readonly': [('state', '=', 'approved')]}">
 					<field  name="plan_m_line_ids" >
 						<tree editable="bottom" >
 						    <field name='business_line'/>
