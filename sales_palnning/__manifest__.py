@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Passap Purchase",
+    'name': "Sales Planning",
 
     'summary': """
-        Passap Purchase Customisation""",
+        Passap Plainning Of Sales""",
 
     'description': """
-        Passap Purchase Customisation
+        Passap Plainning Of Sales
     """,
 
-    'author': "CodeTrade India Pvt. Ltd.",
-    'website': "http://www.codetrade.io",
+    'author': "Zienab Abd EL Nasser",
+    'website': "",
 
     'category': 'Uncategorized',
     'version': '0.1',
-
-    'depends': ['purchase'],
-
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'security/ceo_group.xml',
+         'security/ir.model.access.csv',
+        'views/year_plan.xml',
+        'views/month_plan.xml',
     ],
 }

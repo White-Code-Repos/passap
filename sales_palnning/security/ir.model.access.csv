@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_yearly_plan,year_plan_name,model_year_plan,,1,1,1,1
+access_monthly_plan,month_plan_name,model_year_plan_month,,1,1,1,1
+
+
+access_monthly,month_plan,model_month_plan,,1,1,1,1
+access_monthly_line,month_plan_line,model_month_plan_line,,1,1,1,1
+

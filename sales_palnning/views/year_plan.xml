@@ -1,0 +1,85 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="yearly_plane_tree">
+      <field name="name">Yearly Plane tree view</field>
+      <field name="model">year.plan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="year"/>
+          <field name="responsible"/>
+
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="yearly_plane_form">
+      <field name="name">Yearly Plane form view</field>
+      <field name="model">year.plan</field>
+      <field name="arch" type="xml">
+        <form string="description">
+        <header>
+                <button name="action_submit_plan" states="draft" string="Submit to CEO" groups='sales_team.group_sale_manager' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <button name="action_approve_plan" states="ceoApp" string="Approve" groups='sales_palnning.group_ceo' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <button name="action_adjust_plan" states="approved" string="Adjust Plan" groups='sales_palnning.group_ceo' type="object" class="oe_highlight o_expense_sheet_submit"/>
+                <field name="state" widget="statusbar"/>
+        </header>
+          <sheet>
+                <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
+                    </button>
+                </div>
+            <group>
+             <group>
+                <field name="name" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                <field name="year" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+                <field name="responsible" attrs="{'readonly': [('state', '=', 'approved')]}"/>
+             </group>
+             <group>
+                <field name='source' attrs="{'invisible':[('source','=','')]}" />
+             </group>
+            </group>
+            <notebook>
+                <page string='Plan'  attrs="{'readonly': [('state', '=', 'approved')]}">
+					<field  name="plan_line_ids"  attrs="{'readonly': [('state', '=', 'approved')]}">
+						<tree editable="bottom" >
+						    <field name='analytic_account_id'/>
+							<field name='jan' />
+							<field name='feb' />
+							<field name='mar' />
+							<field name='apr' />
+							<field name='may' />
+							<field name='june' />
+							<field name='july' />
+							<field name='aug' />
+							<field name='sept' />
+							<field name='oct'/>
+							<field name='nov'/>
+							<field name='dec'/>
+							<field name='total'/>
+						</tree>
+					</field>
+				</page>
+			</notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="yearly_plan_action">
+      <field name="name">Yearly Plan</field>
+      <field name="res_model">year.plan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Planning" id="Planning_menu_root"/>
+
+    <menuitem name="Yearly Plan" id="yearly_plan_menu_root" parent="Planning_menu_root" action="yearly_plan_action"/>
+
+  </data>
+</odoo>
