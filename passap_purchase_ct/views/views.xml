@@ -9,5 +9,18 @@
             <field name="last_purchase_price" string="Last Purchase Price"/>
           </xpath>
         </field>
-</record>
+    </record>
+
+<!--    Requeisition -->
+
+    <record id="view_requisition_inherit" model="ir.ui.view">
+        <field name="name">material.purchase.requisition</field>
+        <field name="model">material.purchase.requisition'</field>
+        <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='requisition_responsible_id']" position="after">
+            <field name="type" />
+          </xpath>
+        </field>
+    </record>
 </odoo>
