@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+         <report id="yearly_plan"
+            model="year.plan"
+            string="Yearly Plan"
+            name="sales_palnning.yearly_plan_report"
+            file="sales_palnning.yearly_plan_report"
+            report_type="qweb-pdf"
+        />
+
+        <report id="monthly_plan"
+            model="month.plan"
+            string="Monthly Plan"
+            name="sales_palnning.monthly_plan_report"
+            file="sales_palnning.monthly_plan_report"
+            report_type="qweb-pdf"
+        />
+
+    </data>
+</odoo>

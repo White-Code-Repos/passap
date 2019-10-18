@@ -19,5 +19,8 @@
          'security/ir.model.access.csv',
         'views/year_plan.xml',
         'views/month_plan.xml',
+        'views/monthly_plan_report.xml',
+        'views/yearly_plan_report.xml',
+        'reports/plan_reports.xml'
     ],
 }

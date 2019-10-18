@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="yplanning_report_document">
+
+
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <strong>
+                            <div class="row text-center">
+                                <div class="col-xs-12">
+                                    <span t-field="o.name"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                    <div class="col-xs-3">
+                                        Year :
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <span t-field="o.year"/>
+                                    </div>
+
+                            </div>
+                            <div class="row">
+
+                                    <div class="col-xs-3">
+                                        Responsible :
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <span t-field="o.responsible.name"/>
+                                    </div>
+
+                            </div>
+
+                        </strong>
+                        <br></br>
+                        <div>
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Analytic Account</th>
+                                        <th>Jan.</th>
+                                        <th>Feb.</th>
+                                        <th>Mar.</th>
+                                        <th>Apr.</th>
+                                        <th>May.</th>
+                                        <th>June</th>
+                                        <th>July</th>
+                                        <th>Aug.</th>
+                                        <th>Sept.</th>
+                                        <th>Oct.</th>
+                                        <th>Nov.</th>
+                                        <th>Dec.</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.plan_line_ids" t-as="line">
+                                        <tr>
+                                            <td> <t t-esc="line.analytic_account_id.name" /> </td>
+                                            <td> <t t-esc="line.jan" /> </td>
+                                            <td> <t t-esc="line.feb"/> </td>
+                                            <td> <t t-esc="line.mar" /> </td>
+                                            <td> <t t-esc="line.apr" /> </td>
+                                            <td> <t t-esc="line.may"/> </td>
+                                            <td> <t t-esc="line.june" /> </td>
+                                            <td> <t t-esc="line.july" /> </td>
+                                            <td> <t t-esc="line.aug"/> </td>
+                                            <td> <t t-esc="line.sept" /> </td>
+                                            <td> <t t-esc="line.oct" /> </td>
+                                            <td> <t t-esc="line.nov"/> </td>
+                                            <td> <t t-esc="line.dec" /> </td>
+                                            <td> <t t-esc="line.total"/> </td>
+                                        </tr>
+
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </t>
+
+        </template>
+
+        <template id="yearly_plan_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="sales_palnning.yplanning_report_document" />
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
