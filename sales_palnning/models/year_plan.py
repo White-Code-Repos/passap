@@ -11,6 +11,8 @@ class YearPlane(models.Model):
     plan_line_ids = fields.One2many('year.plan.month', 'plan_id')
 
     source = fields.Many2one('year.plan','Version Of',readonly=True)
+    version_count = fields.Integer(compute='calc_values')
+    monthly_count = fields.Integer(compute='calc_values')
 #     Methods
 
     @api.multi
@@ -66,6 +68,30 @@ class YearPlane(models.Model):
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', plan_ids.ids)],
         }
+
+    @api.multi
+    def open_monthly_plan(self):
+        plan_ids = self.env['month.plan'].search([('yearly_plan', '=', self.id)])
+        list = []
+        for id in plan_ids:
+            list.append(id)
+
+        return {
+            'name': 'Monthly Plan',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'month.plan',
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            'domain': [('id', 'in', plan_ids.ids)],
+        }
+    @api.multi
+    def calc_values(self):
+        for obj in self:
+            obj.monthly_count = len(self.env['month.plan'].search([('yearly_plan', '=', obj.id)]))
+            obj.version_count = len(self.env['year.plan'].search([('source','=',obj.id)]))
+
+
 
 class YearPlaneMonth(models.Model):
 

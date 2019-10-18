@@ -24,6 +24,8 @@ class MonthPlane(models.Model):
                               ('dec','Dec')] ,'Month',required=True)
     source = fields.Many2one('month.plan','Version Of',readonly=True)
     plan_m_line_ids = fields.One2many('month.plan.line', 'month_plan_id')
+    
+    version_count = fields.Integer(compute='calc_values')
 
     # Methods
 
@@ -72,6 +74,11 @@ class MonthPlane(models.Model):
                 'type': 'ir.actions.act_window',
                 'domain': [('id', 'in', plan_ids.ids)],
             }
+
+    @api.multi
+    def calc_values(self):
+        for obj in self:
+            obj.version_count = len(self.env['month.plan'].search([('source', '=', obj.id)]))
 
 
 class MonthPlaneLine(models.Model):

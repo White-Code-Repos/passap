@@ -29,7 +29,8 @@
         </header>
           <sheet>
                 <div class="oe_button_box" name="button_box">
-                    <button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
+                    <button class="oe_stat_button" name="open_versions"  type="object" icon="fa-wrench">
+                        <field name="version_count"  string="Versions" widget="statinfo" modifiers="{'readonly': true}"/>
                     </button>
                 </div>
             <group>
