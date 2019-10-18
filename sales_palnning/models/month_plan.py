@@ -7,6 +7,7 @@ class MonthPlane(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('mangerApp', 'To Manager Approve'), ('approved', 'Approved')],
                              string='Status',
                              required=True, readonly=True, copy=False, default='draft')
+    name = fields.Char('Plan Name',required=True)
 
     yearly_plan = fields.Many2one('year.plan','Yearly Plan' ,required=True)
     month = fields.Selection([('jan','Jan'),
@@ -35,6 +36,7 @@ class MonthPlane(models.Model):
 
     @api.multi
     def action_adjust_plan(self):
+        versions = len(self.env['month.plan'].search([('source','=',self.id)]))
         list = []
         for l in self.plan_m_line_ids:
             line = [0, 0, {
@@ -46,6 +48,7 @@ class MonthPlane(models.Model):
             list.append(line)
         vals = {
             'state': 'draft',
+            'name': self.name + ' version ' + str(versions + 1),
             'yearly_plan': self.yearly_plan.id,
             'month': self.month,
             'plan_m_line_ids': list,
@@ -64,7 +67,7 @@ class MonthPlane(models.Model):
                 'name': 'Versions',
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-                'res_model': 'year.plan',
+                'res_model': 'month.plan',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
                 'domain': [('id', 'in', plan_ids.ids)],
