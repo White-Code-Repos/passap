@@ -10,5 +10,6 @@ from . import sale_order
 from . import stock_immediate_transfer_changes
 from . import stock_move_changes
 from . import stock_picking_changes
+from . import purchase_order
 # from . import procurement_order
 
