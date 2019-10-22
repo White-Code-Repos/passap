@@ -2,4 +2,3 @@
 
 from . import product
 from . import models
-from . import requisition

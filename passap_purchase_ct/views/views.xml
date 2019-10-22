@@ -11,16 +11,5 @@
         </field>
     </record>
 
-<!--    Requeisition -->
 
-<!--    <record id="view_requisition_inherit" model="ir.ui.view">-->
-<!--        <field name="name">material.purchase.requisition</field>-->
-<!--        <field name="model">material.purchase.requisition'</field>-->
-<!--        <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--          <xpath expr="//field[@name='requisiton_responsible_id']" position="after">-->
-<!--            <field name="type" />-->
-<!--          </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
 </odoo>
