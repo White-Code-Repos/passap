@@ -65,6 +65,7 @@
                             <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
                             <field name="request_from"/>
                             <field name="ship_to"/>
+                            <field name="analytic_account_id"/>
                         </group>
                         <group>
                             <field name="date_start"

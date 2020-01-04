@@ -38,7 +38,6 @@ class StockResupplyRequest(models.Model):
 
 
     name = fields.Char('Request Code', size=32, required=True,
-                       default=_get_default_name,
                        track_visibility='onchange')
     date_start = fields.Date('Start date',
                              help="Date when the user initiated the request.",
@@ -72,6 +71,8 @@ class StockResupplyRequest(models.Model):
                              required=True,
                              copy=False,
                              default='draft')
+    analytic_account_id = fields.Many2one(comodel_name='account.analytic.account',
+                                          string="Analytic Account", required=True)
 
 
     @api.onchange('state')
@@ -169,7 +170,7 @@ class StockResupplyRequest(models.Model):
           one2many_field.append(products_list)
         picking_obj = self.env['stock.picking']
         created_pick = picking_obj.create({
-                'picking_type_id' : picking_type.id,
+                'picking_type_id' : 2,
                 'location_id' :self.request_from.id,
                 'location_dest_id' :self.ship_to.id,
                 'origin' :self.name,
@@ -178,6 +179,11 @@ class StockResupplyRequest(models.Model):
         })
         created_pick.action_confirm()
         self.write({'state': 'warehouse'})
+
+    def create(self,vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('stock.resupply.request')
+        res = super(StockResupplyRequest,self).create(vals)
+        return res
           
 
 
