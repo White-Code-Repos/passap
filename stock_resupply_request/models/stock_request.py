@@ -180,6 +180,7 @@ class StockResupplyRequest(models.Model):
         created_pick.action_confirm()
         self.write({'state': 'warehouse'})
 
+    @api.model
     def create(self,vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('stock.resupply.request')
         res = super(StockResupplyRequest,self).create(vals)
