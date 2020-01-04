@@ -38,7 +38,7 @@ class StockResupplyRequest(models.Model):
 
 
     name = fields.Char('Request Code', size=32, required=True,
-                       track_visibility='onchange')
+                       track_visibility='onchange',default='new')
     date_start = fields.Date('Start date',
                              help="Date when the user initiated the request.",
                              default=fields.Date.context_today,
