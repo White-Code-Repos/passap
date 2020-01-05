@@ -14,8 +14,8 @@ class StockPicking(models.Model):
         if stock_request:
             stock_request.button_rejected()
 
-    def action_validate(self):
-        res = super(StockPicking,self).action_validate()
+    def button_validate(self):
+        res = super(StockPicking,self).button_validate()
         stock_request = self.env['stock.resupply.request'].search([('name','=',self.origin)])
         if stock_request:
             stock_request.button_done()
