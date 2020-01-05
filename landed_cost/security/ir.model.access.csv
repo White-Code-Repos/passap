@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_planning_first,planning_first,model_planning_first,group_planning_first,1,1,1,1
+access_planning_second,planning_second,model_planning_second,group_planning_first,1,1,1,1
+access_planning_third,planning_third,model_planning_third,group_planning_first,1,1,1,1
+
+
+
+
+
+
