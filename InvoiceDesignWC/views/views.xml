@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <odoo>
+       <data>
+          <record id="conf_test_form" model="ir.ui.view">
+              <field name="name">conf.test.form</field>
+              <field name="model">invoice.design.wc</field>
+              <field name="arch" type="xml">
+                  <form edit="true" create="false" delete="false">
+                      <sheet>
+                          <group col="4">
+
+                              <field name="image1" class="oe_avatar" widget="image"/>
+                              <field name="image2" class="oe_avatar" widget="image"/>
+                          </group>
+                          <group col="6">
+                              <field name="image3" class="oe_avatar" widget="image"/>
+                              <field name="image4" class="oe_avatar" widget="image"/>
+                              <field name="image5" class="oe_avatar" widget="image"/>
+
+                          </group>
+                      </sheet>
+                  </form>
+              </field>
+          </record>
+           <record id="conf_test_tree" model="ir.ui.view">
+               <field name="name">conf.test.tree</field>
+               <field name="model">invoice.design.wc</field>
+               <field name="arch" type="xml">
+                   <tree limit="1" create="true" delete="false">
+                       <field name="image1"/>
+                   </tree>
+               </field>
+           </record>
+           <record id="conf_test_action" model="ir.actions.act_window">
+               <field name="name">Configuration</field>
+               <field name="type">ir.actions.act_window</field>
+               <field name="res_model">invoice.design.wc</field>
+               <field name="view_mode">tree,form</field>
+               <field name="help" type="html">
+                 <p class="oe_view_nocontent_create">
+                  Invoice Report Configuration
+                 </p>
+               </field>
+           </record>
+           <menuitem id="UNIQUE_ID_action" name="Invoice Report Configuration"  action="conf_test_action" sequence="3"/>
+
+
+
+</data>
+   </odoo>
