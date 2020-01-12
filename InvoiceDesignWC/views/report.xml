@@ -5,7 +5,7 @@
         <report
 
             auto="False"
-            string="Invoices new"
+            string="Invoices"
             id="account.account_invoices"
             model="account.invoice"
             report_type="qweb-pdf"
@@ -41,8 +41,8 @@
                          </t>
                             <t t-if="img2"><img t-if="img2" t-att-src="image_data_uri(img2)" style="max-height:3cm; max-width:3cm;"/></t>
                     </div>
-                     <div style="width:30%"></div>
-                     <div style="width:40%;">
+                     <div style="width:35%"></div>
+                     <div style="width:45%;">
                          <t t-if="not img3">
                               <img  src="/InvoiceDesignWC/static/image/img3.jpeg"
                                style="max-height:3cm; max-width:3cm;"
@@ -57,7 +57,7 @@
                           </t>
                             <t t-if="img5"><img t-if="img5" t-att-src="image_data_uri(img5)" style="max-height:3cm; max-width:3cm;"/></t>
 
-                      <div style="width:40%">
+                      <div style="width:45%">
                           <t t-if="not img4">
                               <img  src="/InvoiceDesignWC/static/image/img4.jpeg"
                                style="max-height:3cm; max-width:3cm;"
@@ -107,7 +107,7 @@
                         <div style="margin:3%;width:70%;margin-top:-24px;"> VAT BE0477472701 </div>
                      </div>
                      <div style="float:right">
-                        <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+                        <i>Date: </i><span t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
                      </div>
 
                 <div class="page">
@@ -117,9 +117,13 @@
                                <tr>
                                    <t t-set="colspan" t-value="6"/>
                                    <th class="text-left"><span>#</span></th>
-                                   <th class="text-right"><span>Description</span></th>
+                                   <th class="text-left"><span>Description</span></th>
                                    <th class="text-right"><span>QTY</span></th>
                                    <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>UNIT PRICE</span></th>
+                                   <th class="text-right">
+                                       <span groups="account.group_show_line_subtotals_tax_excluded">TOTAL</span>
+                                       <span></span>
+                                   </th>
                                </tr>
                            </thead>
                            <tbody class="invoice_tbody">
@@ -139,9 +143,24 @@
                                         <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span t-field="line.price_unit"/>
                                         </td>
-
+                                        <td class="text-right o_price_total">
+                                            <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                            <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                        </td>
                                     </t>
+
                                 </tr>
+                                    <t t-if="current_section and (line_last or o.invoice_line_ids[line_index+1].display_type == 'line_section')">
+                                    <tr class="is-subtotal text-right">
+                                        <td colspan="99">
+                                            <strong class="mr16">Subtotal</strong>
+                                            <span
+                                                t-esc="current_subtotal"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                            />
+                                        </td>
+                                    </tr>
+                                </t>
                                 </t>
                            </tbody>
                        </table>
@@ -166,40 +185,57 @@
 
          <div class="footer">
              <hr/>
+
+
                 <div class="row">
                     <t t-if="request.env['invoice.design.wc'].search([])" >
                          <t t-set="img1" t-value="request.env['invoice.design.wc'].search([])[0].image1"/>
                     </t>
-                         <div style="width:15%;">
+                         <div style="width:10%;">
                          <t t-if="not img1">
                               <img  src="/InvoiceDesignWC/static/image/img1.jpeg"
                                style="max-height:3cm; max-width:3cm;"
                                 alt="Logo"/>
                           </t>
                             <p t-if="img1"><img t-if="img1" t-att-src="image_data_uri(img1)" style="max-height:3cm; max-width:3cm;"/></p>
+
                         </div>
+                    <div style="width:17%;">
+                          <b>UK Mian Office </b>
+                                <div style="font-size:55%">142 Cromwell Road ,Kensington -SW7 4EF</div>
+                                <div style="font-size:55%">London ,United Kingdom</div>
+                    </div>
+                       <div style="margin-right:0.5cm;border-left: 1px solid black;height:2cm;"></div>
+
                       <div style="width:20%">
-                                <h5>Eypt Office </h5>
-                                <div>Arkan Plaza Building #4/Floor 4 -Sheikh Zayed</div>
-                                <div>Cairo, Egypt</div>
+                                <b>Egypt Office </b>
+                                <div style="font-size:55%">Arkan Plaza Building #4/Floor 4 -Sheikh Zayed</div>
+                                <div style="font-size:55%">Cairo, Egypt</div>
                             </div>
-                      <div style="width:25%" >
-                                <h5>KSA Office </h5>
-                                <div>32246 Al-Jalawiah -King Saud St</div>
-                                <div>Dammam ,Saudi Arabia</div>
+                      <div style="margin-right:0.5cm;border-left: 1px solid black;height:2cm;"></div>
+
+                      <div style="width:15%" >
+                                <b>KSA Office </b>
+                                <div style="font-size:55%">32246 Al-Jalawiah -King Saud St</div>
+                                <div style="font-size:55%">Dammam ,Saudi Arabia</div>
                             </div>
-                      <div style="width:20%">
-                                <h5>Libya Office </h5>
-                                <div>Asoussa At ,Abou Nawwas</div>
-                                <div>Gergares ,Tripoil</div>
+                       <div style="margin-right:0.5cm;border-left: 1px solid black;height:2cm;"></div>
+
+
+                      <div style="width:15%">
+                                <b>Libya Office </b>
+                                <div style="font-size:55%">Asoussa At ,Abou Nawwas</div>
+                                <div style="font-size:55%">Gergares ,Tripoil</div>
                             </div>
-                      <div style="width:20%">
-                                 <h6><a style="color:blue">Email: info@white-code.co.uk </a></h6>
-                                 <h6><a style="color:blue">Website: www.white-code.co.uk</a></h6>
+                     <div style="margin-right:0.5cm;border-left: 1px solid black;height:2cm;"></div>
+                     <div></div>
+
+                      <div style="width:25%">
+                                 <div style="font-size:60%"><a style="color:blue">Email: info@white-code.co.uk </a></div>
+                                 <div style="font-size:60%"><a style="color:blue">Website: www.white-code.co.uk</a></div>
                              </div>
-
-
                  </div>
+
          </div>
 
     </template>
