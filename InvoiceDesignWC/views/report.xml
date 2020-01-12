@@ -42,31 +42,37 @@
                             <t t-if="img2"><img t-if="img2" t-att-src="image_data_uri(img2)" style="max-height:3cm; max-width:3cm;"/></t>
                     </div>
                      <div style="width:35%"></div>
-                     <div style="width:45%;">
+                     <div>
                          <t t-if="not img3">
                               <img  src="/InvoiceDesignWC/static/image/img3.jpeg"
-                               style="max-height:3cm; max-width:3cm;"
+                               style="max-height:4cm; max-width:4cm;"
                                 alt="Logo"/>
                           </t>
-                            <t t-if="img3"><img t-if="img3" t-att-src="image_data_uri(img3)" style="max-height:3cm; max-width:3cm;"/></t>
-
-                         <t t-if="not img5">
-                              <img  src="/InvoiceDesignWC/static/image/img5.jpeg"
-                               style="max-height:3cm; max-width:3cm;"
-                                alt="Logo"/>
-                          </t>
-                            <t t-if="img5"><img t-if="img5" t-att-src="image_data_uri(img5)" style="max-height:3cm; max-width:3cm;"/></t>
-
-                      <div style="width:45%">
-                          <t t-if="not img4">
+                            <t t-if="img3"><img t-if="img3" t-att-src="image_data_uri(img3)" style="max-height:4cm; max-width:4cm;"/></t>
+                          <div>
+                          <t t-if="not img4" style="margin-right:98%">
                               <img  src="/InvoiceDesignWC/static/image/img4.jpeg"
-                               style="max-height:3cm; max-width:3cm;"
+                               style="max-height:4cm; max-width:4cm;"
                                 alt="Logo"/>
                           </t>
-                            <t t-if="img4"><img t-if="img4" t-att-src="image_data_uri(img4)" style="max-height:3cm; max-width:3cm;"/></t>
+                            <t t-if="img4"><img t-if="img4" t-att-src="image_data_uri(img4)" style="max-height:4cm; max-width:3cm;"/></t>
 
                       </div>
+                     </div>
+
+                       <div style="padding-right:4px; margin-right:4px" ></div>
+                     <div style="padding-top:10px; margin-top:10px">
+                         <t t-if="not img5">
+                              <img  src="/InvoiceDesignWC/static/image/img5.jpeg"
+                               style="max-height:4cm; max-width:4cm;"
+                                alt="Logo"/>
+                          </t>
+                            <t t-if="img5"><img t-if="img5" t-att-src="image_data_uri(img5)" style="max-height:4cm; max-width:4cm;"/></t>
+
                     </div>
+
+
+
 
                 </div>
             </t>
