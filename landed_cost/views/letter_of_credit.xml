@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+         <record id="action_letter_of_credit_action" model="ir.actions.act_window">
+            <field name="name">letter Of Credit</field>
+            <field name="res_model">letter.credit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+                <record id="letter_of_credit_form_view" model="ir.ui.view">
+            <field name="name">letter Of Credit</field>
+            <field name="model">letter.credit</field>
+
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="open_payment_view" type="object" string="Payment" class="btn-primary"  />
+                        <button name="button_confirm" type="object" string="Confirm"  class="btn-primary" />
+                        <button name="button_cancel" type="object" string="Cancel"  class="btn-primary" />
+
+                          <field name="state" widget="statusbar"
+                                        statusbar_visible="draft,progress,confirm,landed,validated,cancel"/>
+                    </header>
+
+                    <sheet>
+                       <div class="oe_button_box" name="button_box">
+
+
+                         <button class="oe_stat_button" name="open_payment_view_smart" type="object"
+                        icon="fa-pencil-square-o" help="Payments">
+                        <field string="Payments" name="payment_count" widget="statinfo"/>
+
+                    </button>
+                        </div>
+                        <group>
+                           <field name="name" string="Name"/>
+                        </group>
+                        <group>
+                            <group>
+                               <field name="lc_number" string="LC Number"/>
+                        <field name="start_date" string="Start Date"/>
+                        <field name="end_date" string="End Date"/>
+                            </group>
+                            <group>
+                                <field name="purchase_id" string="purchase order"/>
+                        <field name="invoice_id" string="Bill"/>
+                        <field name="inco_term" string="Inco Term"/>
+                            </group>
+                        </group>
+                    
+
+
+
+                    </sheet>
+            </form>
+            </field>
+
+        </record>
+
+         <record id="letter_of_credit_tree_view" model="ir.ui.view">
+            <field name="name">letter of Credit</field>
+            <field name="model">letter.credit</field>
+
+            <field name="arch" type="xml">
+            <tree>
+             <field name="name" string="Name"/>
+                <field name="state" string="State"/>
+                 <field name="lc_number" string="LC Number"/>
+                        <field name="start_date" string="Start Date"/>
+                        <field name="end_date" string="End Date"/>
+            </tree>
+            </field>
+        </record>
+
+
+
+        <menuitem id="letter_of_credit_menu_item"
+                  name="Letter Of Credit"
+                  parent="account.menu_finance_entries"
+                  action="action_letter_of_credit_action"
+                    sequence="7"/>
+        
+        <record id="seq_letter_of_credit" model="ir.sequence">
+            <field name="name">Letter Of Credit</field>
+            <field name="code">letter.credit</field>
+            <field name="prefix">LC/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>   
+    </data>
+</odoo>

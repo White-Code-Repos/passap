@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+            <record id="account_payment_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='payment_type']" position="after">
+<!--                        <field name="lc_expense_name" attrs="{'invisible':[('payment_type', '!=', 'expense')]}"/>-->
+                     <field name="lc_expense_id" attrs="{'invisible':[('payment_type', '!=', 'expense')]}"/>
+                        <field name="letter_of_credit_id" invisible="1" />
+
+                    </xpath>
+
+
+
+
+
+            </field>
+        </record>
+    </data>
+</odoo>
