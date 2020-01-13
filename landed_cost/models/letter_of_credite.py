@@ -78,15 +78,27 @@ class LETTEROFCREDIT(models.Model):
     def button_confirm(self):
 
 
+        return self.write({'state': 'progress'})
+
+    @api.multi
+    def button_confirm_lc(self):
         return self.write({'state': 'confirm'})
 
     @api.multi
-    def button_payment(self):
-        return self.write({'state': 'progress'})
+    def button_lc_validate(self):
+        return self.write({'state': 'landed'})
+
+    @api.multi
+    def button_validate(self):
+        return self.write({'state': 'validated'})
 
     @api.multi
     def button_cancel(self):
         return self.write({'state': 'cancel'})
+
+    @api.multi
+    def button_draft(self):
+        return self.write({'state': 'draft'})
 
 
 

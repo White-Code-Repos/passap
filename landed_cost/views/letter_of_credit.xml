@@ -17,8 +17,14 @@
                 <form>
                     <header>
                         <button name="open_payment_view" type="object" string="Payment" class="btn-primary"  />
-                        <button name="button_confirm" type="object" string="Confirm"  class="btn-primary" />
-                        <button name="button_cancel" type="object" string="Cancel"  class="btn-primary" />
+                        <button name="button_confirm" type="object" string="Confirm" states="draft"  class="btn-primary" />
+                        <button name="button_confirm_lc" type="object" string="confirm Land cost" states="progress"  class="btn-primary" />
+
+                        <button name="button_lc_validate" type="object" string="Land cost Validate" states="confirm" class="btn-primary" />
+
+                        <button name="button_validate" type="object" string="Validated" states="landed" class="btn-primary" />
+                        <button name="button_cancel" type="object" string="Cancel" states="landed,progress,confirm,cancel,validated"  class="btn-primary" />
+                        <button name="button_draft" type="object" string="Rest Draft" states="landed,progress,confirm,cancel,validated" class="btn-primary" />
 
                           <field name="state" widget="statusbar"
                                         statusbar_visible="draft,progress,confirm,landed,validated,cancel"/>
