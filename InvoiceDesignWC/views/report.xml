@@ -27,50 +27,49 @@
                 <div class="row">
                      <div style="width:15%;">
                          <t t-if="not img1">
-                              <img  src="/InvoiceDesignWC/static/image/img1.jpeg"
-                               style="max-height:3cm; max-width:3cm;"
+                              <img  src="/InvoiceDesignWC/static/image/img1.png"
+                               style="height:4.2cm; width:3.5cm;"
                                 alt="Logo"/>
                           </t>
-                            <t t-if="img1"><img t-if="img1" t-att-src="image_data_uri(img1)" style="max-height:3cm; max-width:3cm;"/></t>
+                            <t t-if="img1"><img t-if="img1" t-att-src="image_data_uri(img1)" style="height:4.2cm; width:3.5cm;"/></t>
                     </div>
                      <div style="width:15%">
                          <t t-if="not img2">
-                              <img  src="/InvoiceDesignWC/static/image/img2.jpeg"
-                               style="max-height:3cm; max-width:3cm;"
+                              <img  src="/InvoiceDesignWC/static/image/img2.png"
+                                    style="height:3.6cm; width:4.5cm; padding-left:20px; padding-top:18px;!important"
                                 alt="Logo"/>
                          </t>
-                            <t t-if="img2"><img t-if="img2" t-att-src="image_data_uri(img2)" style="max-height:3cm; max-width:3cm;"/></t>
+                            <t t-if="img2"><img t-if="img2" t-att-src="image_data_uri(img2)" style="height:3.6cm; width:4.5cm; padding-left:20px; padding-top:18px;!important" /></t>
                     </div>
-                     <div style="width:35%"></div>
+                     <div style="width:15%"></div>
                      <div>
                          <t t-if="not img3">
-                              <img  src="/InvoiceDesignWC/static/image/img3.jpeg"
-                               style="max-height:4cm; max-width:4cm;"
+                              <img  src="/InvoiceDesignWC/static/image/img3.png"
+                               style="height:4.2cm; width:5.5cm; padding-left:45px;padding-top:1px!important"
                                 alt="Logo"/>
                           </t>
-                            <t t-if="img3"><img t-if="img3" t-att-src="image_data_uri(img3)" style="max-height:4cm; max-width:4cm;"/></t>
-                          <div>
-                          <t t-if="not img4" style="margin-right:98%">
-                              <img  src="/InvoiceDesignWC/static/image/img4.jpeg"
-                               style="max-height:4cm; max-width:4cm;"
+
+                         <t t-if="img3"><img t-if="img3" t-att-src="image_data_uri(img3)" style="height:4.2cm; width:5.5cm; padding-left:45px;padding-top:1px!important"/></t>
+                          <t t-if="not img5">
+                              <img  src="/InvoiceDesignWC/static/image/img7.png"
+                              style="width:11cm;padding-top:50px;!important"
+
                                 alt="Logo"/>
                           </t>
-                            <t t-if="img4"><img t-if="img4" t-att-src="image_data_uri(img4)" style="max-height:4cm; max-width:3cm;"/></t>
+                            <t t-if="img5"><img t-if="img5" t-att-src="image_data_uri(img5)"  style="width:11cm;padding-top:50px;!important"/></t>
+
+                          <div style="padding-left:85px; padding-top:3px;!important">
+                          <t t-if="not img4">
+                              <img  src="/InvoiceDesignWC/static/image/img6.jpg"
+                                    style="width:15cm;"
+                                alt="Logo"/>
+                          </t>
+                            <t t-if="img4"><img t-if="img4" t-att-src="image_data_uri(img4)" style="width:15cm;"/></t>
 
                       </div>
+
                      </div>
-
-                       <div style="padding-right:4px; margin-right:4px" ></div>
-                     <div style="padding-top:10px; margin-top:10px">
-                         <t t-if="not img5">
-                              <img  src="/InvoiceDesignWC/static/image/img5.jpeg"
-                               style="max-height:4cm; max-width:4cm;"
-                                alt="Logo"/>
-                          </t>
-                            <t t-if="img5"><img t-if="img5" t-att-src="image_data_uri(img5)" style="max-height:4cm; max-width:4cm;"/></t>
-
-                    </div>
-
+                    <br></br>
 
 
 
@@ -81,36 +80,52 @@
          <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
             <t t-call="web.internal_layout">
+                      <t t-if="request.env['invoice.design.wc'].search([])">
+                      <t t-set="company_name" t-value="request.env['invoice.design.wc'].search([])[0].company_name"/>
+                      <t t-set="company_address" t-value="request.env['invoice.design.wc'].search([])[0].company_address"/>
+                      <t t-set="company_city" t-value="request.env['invoice.design.wc'].search([])[0].company_city"/>
+                      <t t-set="company_country" t-value="request.env['invoice.design.wc'].search([])[0].company_country"/>
+                      <t t-set="company_website" t-value="request.env['invoice.design.wc'].search([])[0].company_website"/>
+                      <t t-set="company_email" t-value="request.env['invoice.design.wc'].search([])[0].company_email"/>
+                      <t t-set="company_phone" t-value="request.env['invoice.design.wc'].search([])[0].company_phone"/>
+                      <t t-set="company_partner" t-value="request.env['invoice.design.wc'].search([])[0].company_partner"/>
+                      <t t-set="company_partner_address" t-value="request.env['invoice.design.wc'].search([])[0].company_partner_address"/>
+                      <t t-set="company_district" t-value="request.env['invoice.design.wc'].search([])[0].company_district"/>
+                      <t t-set="company_partner_country" t-value="request.env['invoice.design.wc'].search([])[0].company_partner_country"/>
+                      <t t-set="company_partner_vat" t-value="request.env['invoice.design.wc'].search([])[0].company_partner_vat"/>
+                      </t>
+                    <br></br>
                      <hr/>
+
                      <h2><b>WHITE CODE</b></h2>
                      <h4>INFORMATION TECHNOLOGY</h4>
 
-                     <div class="row" style="margin:3%">
-                       <div style="margin:3%;width:30%;margin-top:-24px;"> Cairo Arkan Plaza</div>
+                    <div class="row" style="margin:3%">
+                        <div style="margin:3%;width:30%;margin-top:-24px;"> <span t-esc="company_name"/></div>
                         <h5 style="margin:3%;width:70%;margin-top:-24px;">TO:</h5>
-                     </div>
+                    </div>
 
                      <div class="row" style="margin:3%;margin-top:-24px;">
-                           <div style="margin:3%;width:30%;margin-top:-24px;">El Sheikh Zayed,Building #4</div>
-                           <div style="margin:3%;width:70%;margin-top:-24px;">Odoo S.A.</div>
+                           <div style="margin:3%;width:30%;margin-top:-24px;"><span t-esc="company_address"/></div>
+                           <div style="margin:3%;width:70%;margin-top:-24px;"><span t-esc="company_partner"/></div>
                      </div >
 
                      <div class="row" style="margin:3%;margin-top:-24px;">
-                           <div style="margin:3%;width:30%;margin-top:-24px;">Cairo ,Egypt</div>
-                           <div style="margin:3%;width:70%;margin-top:-24px;">Chaussee de Namur 40</div>
+                         <div style="margin:3%;width:30%;margin-top:-24px;"><span t-esc="company_city"/><span>,</span><span t-esc="company_country"/></div>
+                           <div style="margin:3%;width:70%;margin-top:-24px;"><span t-esc="company_partner_address"/></div>
                      </div>
 
                      <div class="row" style="margin:3%;margin-top:-24px;">
-                            <div style="margin:3%;width:30%;margin-top:-24px;">www.white-code.co.uk</div>
-                            <div style="margin:3%;width:70%;margin-top:-24px;">1367 Grand-Rosiere</div>
+                            <div style="margin:3%;width:30%;margin-top:-24px;"><span t-esc="company_website"/></div>
+                            <div style="margin:3%;width:70%;margin-top:-24px;"><span t-esc="company_district"/></div>
                      </div>
                      <div class="row" style="margin:3%;margin-top:-24px;">
-                           <div style="margin:3%;width:30%;margin-top:-24px;"><u>info@white-code.co.uk</u></div>
-                           <div style="margin:3%;width:70%;margin-top:-24px;">Belgium</div>
+                           <div style="margin:3%;width:30%;margin-top:-24px;"><u><span t-esc="company_email"/></u></div>
+                           <div style="margin:3%;width:70%;margin-top:-24px;"><span t-esc="company_partner_country"/></div>
                      </div>
                      <div class="row" style="margin:3%;margin-top:-24px;">
-                        <div style="margin:3%;width:30%;margin-top:-24px;"><u>(+20)1223222576</u></div>
-                        <div style="margin:3%;width:70%;margin-top:-24px;"> VAT BE0477472701 </div>
+                        <div style="margin:3%;width:30%;margin-top:-24px;"><u><span t-esc="company_phone"/></u></div>
+                        <div style="margin:3%;width:70%;margin-top:-24px;"><span t-esc="company_partner_vat"/></div>
                      </div>
                      <div style="float:right">
                         <i>Date: </i><span t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
@@ -199,7 +214,7 @@
                     </t>
                          <div style="width:10%;">
                          <t t-if="not img1">
-                              <img  src="/InvoiceDesignWC/static/image/img1.jpeg"
+                              <img  src="/InvoiceDesignWC/static/image/img1.png"
                                style="max-height:3cm; max-width:3cm;"
                                 alt="Logo"/>
                           </t>

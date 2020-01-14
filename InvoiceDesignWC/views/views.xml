@@ -18,6 +18,30 @@
                               <field name="image5" class="oe_avatar" widget="image"/>
 
                           </group>
+
+                              <notebook>
+                                  <page string="Company Information">
+                                      <group col="4">
+                                      <field name="company_name"/>
+                                      <field name="company_address"/>
+                                      <field name="company_city"/>
+                                      <field name="company_country"/>
+                                      <field name="company_website"/>
+                                      <field name="company_email"/>
+                                      <field name="company_phone"/>
+                                      </group>
+                                  </page>
+                                   <page string="Partner Information">
+                                      <group col="4">
+                                      <field name="company_partner"/>
+                                      <field name="company_partner_address"/>
+                                      <field name="company_district"/>
+                                      <field name="company_partner_country"/>
+                                      <field name="company_partner_vat"/>
+                                      </group>
+                                  </page>
+                              </notebook>
+
                       </sheet>
                   </form>
               </field>

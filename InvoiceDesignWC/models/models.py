@@ -12,7 +12,18 @@ class invoice_design_wc(models.Model):
     image3 = fields.Binary(string="image3", )
     image4 = fields.Binary(string="image4", )
     image5 = fields.Binary(string="image5", )
-
+    company_name = fields.Char(string="Company Name", required=False, )
+    company_address = fields.Char(string="Company Address", required=False, )
+    company_city = fields.Char(string="Company City", required=False, )
+    company_country = fields.Char(string="Company Country", required=False, )
+    company_website = fields.Char(string="Company Website", required=False, )
+    company_email = fields.Char(string="Company Email", required=False, )
+    company_phone = fields.Char(string="Company Phone Number", required=False, )
+    company_partner = fields.Char(string="Company Partner", required=False, )
+    company_partner_address = fields.Char(string="Partner Address", required=False, )
+    company_district = fields.Char(string="Company District", required=False, )
+    company_partner_country = fields.Char(string="Partner Country", required=False, )
+    company_partner_vat = fields.Char(string="Company Partner Vat", required=False, )
     @api.one
     def _set_image_small(self):
         self._set_image_value(self.image1)
