@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+            <record id="landed_cost_inherit_form_view" model="ir.ui.view">
+            <field name="name">Landed Cost</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='account_journal_id']" position="before">
+                        <field name="inco_term"/>
+
+
+                    </xpath>
+
+                 <xpath expr="//field[@name='account_move_id']" position="after">
+                        <field name="purchase_id" string="Purchase Order"/>
+
+                 <field name="invoice_id" string="invoice"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='state']" position="replace">
+                        <field name="state" widget="statusbar" statusbar_visible="draft,progress,done"/>
+
+
+                    </xpath>
+                 <xpath expr="//button[@name='button_cancel']" position="before">
+                         <button name="button_progress" string="Confirm" states="draft" class="oe_highlight" type="object"/>
+
+
+                    </xpath>
+                <xpath expr="//button[@name='button_validate']" position="replace">
+                          <button name="button_validate" string="Validate" states="progress" class="oe_highlight" type="object"/>
+
+
+                    </xpath>
+
+
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

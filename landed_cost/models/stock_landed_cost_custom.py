@@ -3,7 +3,8 @@ from odoo.exceptions import UserError, ValidationError
 
 class STOCKLANDEDCOSTCUSTOM(models.Model):
     _inherit = 'product.product'
-    income_terms = fields.Many2many('account.incoterms', string='Income Term' )
+    income_terms = fields.Many2many('account.incoterms', string='Inco Term' )
+    custom_percentage = fields.Boolean()
 
 
 
