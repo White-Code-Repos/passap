@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+         
+        <report id="follow_up_sales_report"
+            model="month.plan"
+            string="Monthly Plan"
+            name="sales_plan_report.print_follow_sales"
+            file="sales_plan_report.print_follow_sales"
+            report_type="qweb-pdf"
+        />
+
+    </data>
+</odoo>

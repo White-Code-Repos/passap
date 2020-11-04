@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="print_follow_sales">
+    <t t-call="web.html_container">
+    <t t-call="web.internal_layout">
+        <div class="page">
+            <h1><p class="text-center"> <span class="text-center" t-esc="date_year"/> خطه المبيعات السنويه </p> </h1>
+
+            <table class="table table-bordered table-condensed" dir="rtl" >
+                <thead>
+                    <tr>
+                        <th name="th_brand" class="text-center" rowspan="2" >البيان</th>
+                        <th name="th_qty" class="text-center" colspan="4"><span class="text-center" t-esc="date_month"/></th>
+                        <th name="th_total_amount" class="text-center" colspan="4">حتي تاريخ</th>
+                        <th name="th_total_amount" class="text-center" colspan="3">اجمالي الفتره حتي تاريخ</th>
+                        <th name="th_total_amount" class="text-center" colspan="3">الاجمالي</th>
+
+                    </tr>
+                    <tr>
+                        <th name="th_total_amount" class="text-center" >المخطط</th>
+                        <th name="th_total_amount" class="text-center" >الفعلى</th>
+                        <th name="th_total_amount" class="text-center" >الانحراف</th>
+                        <th name="th_total_amount" class="text-center" >نسبة تنفيذ الخطة</th>
+
+                       <th name="th_total_amount" class="text-center" >المخطط</th>
+                        <th name="th_total_amount" class="text-center" >الفعلى</th>
+                        <th name="th_total_amount" class="text-center" >الانحراف</th>
+                        <th name="th_total_amount" class="text-center" >نسبة تنفيذ الخطة</th>
+
+                       <th name="th_total_amount" class="text-center" >المخطط</th>
+                        <th name="th_total_amount" class="text-center" >الفعلى</th>
+                        <th name="th_total_amount" class="text-center" >الانحراف</th>
+
+                       <th name="th_total_amount" class="text-center" >النسبه</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <t t-foreach="month1_lines" t-as="line">
+                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' ">
+<!--                            <t t-set="diff_amount" t-value="line.total_amount * diff"/>-->
+
+                                <td name="td_brand" class="text-center">
+                                    <span t-esc="line['brand']"/>
+                                </td>
+
+                                <td name="td_planed_qty" class="text-center">
+                                    <span t-esc="line['planed_qty']"/>
+                                </td>
+                                <td name="td_saled_qty" class="text-center">
+                                    <span t-esc="line['saled_qty']"/>
+                                </td>
+                                <td name="td_diff" class="text-center">
+                                    <span t-esc="line['diff']"/>
+                                </td>
+                                <td name="td_ratio" class="text-center">
+                                    <span t-esc="line['ratio']"/>
+                                </td>
+
+                                <td name="td_planed_qty_2" class="text-center">
+                                    <span t-esc="line['planed_qty_2']"/>
+                                </td>
+                                <td name="td_saled_qty_2" class="text-center">
+                                    <span t-esc="line['saled_qty_2']"/>
+                                </td>
+                                <td name="td_diff_2" class="text-center">
+                                    <span t-esc="line['diff_2']"/>
+                                </td>
+                                <td name="td_ratio_2" class="text-center">
+                                    <span t-esc="line['ratio_2']"/>
+                                </td>
+
+                                <td name="td_total_planed" class="text-center">
+                                    <span t-esc="line['total_planed']"/>
+                                </td>
+                                <td name="td_total_saled" class="text-center">
+                                    <span t-esc="line['total_saled']"/>
+                                </td>
+                                <td name="td_total_diff" class="text-center">
+                                    <span t-esc="line['total_diff']"/>
+                                </td>
+
+                                <td name="td_final_ratio" class="text-center">
+                                    <span t-esc="line['final_ratio']"/>
+                                </td>
+
+                        </tr>
+
+                    </t>
+                </tbody>
+
+            </table>
+
+        </div>
+    </t>
+    </t>
+</template>
+
+
+</odoo>

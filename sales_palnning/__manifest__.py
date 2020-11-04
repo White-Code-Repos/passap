@@ -14,10 +14,14 @@
 
     'category': 'Uncategorized',
     'version': '0.1',
+    'depends':['base','mail'],
     'data': [
         'security/ceo_group.xml',
          'security/ir.model.access.csv',
         'views/year_plan.xml',
         'views/month_plan.xml',
+        'views/monthly_plan_report.xml',
+        'views/yearly_plan_report.xml',
+        'reports/plan_reports.xml'
     ],
 }

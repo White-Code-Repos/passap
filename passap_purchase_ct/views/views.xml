@@ -9,5 +9,7 @@
             <field name="last_purchase_price" string="Last Purchase Price"/>
           </xpath>
         </field>
-</record>
+    </record>
+
+
 </odoo>

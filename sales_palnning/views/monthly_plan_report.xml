@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="mplanning_report_document">
+
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <strong>
+                            <div class="row text-center">
+                                <div class="col-xs-3">
+                                    <span t-field="o.name"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                    <div class="col-xs-3">
+                                        Yearly Plan :
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <span t-field="o.yearly_plan"/>
+                                    </div>
+
+                            </div>
+                            <div class="row">
+
+                                    <div class="col-xs-3">
+                                        Month :
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <span t-field="o.month"/>
+                                    </div>
+
+                            </div>
+                        </strong>
+                        <br></br>
+                        <div>
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                    <th>Business Line</th>
+                                    <th>Quantities To Supply</th>
+                                    <th>Product</th>
+                                    <th>QTY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.plan_m_line_ids" t-as="line">
+                                        <tr>
+                                        <td> <t t-esc="line.business_line.name" /> </td>
+                                        <td> <t t-esc="line.quantity" /> </td>
+                                        <td> <t t-esc="line.product_id.name"/> </td>
+                                        <td> <t t-esc="line.qty" /> </td>
+                                        </tr>
+
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </t>
+
+        </template>
+
+
+
+        <template id="monthly_plan_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="sales_palnning.mplanning_report_document" />
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

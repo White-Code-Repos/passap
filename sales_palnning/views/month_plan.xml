@@ -7,6 +7,7 @@
       <field name="model">month.plan</field>
       <field name="arch" type="xml">
         <tree>
+            <field name="name" />
           <field name="yearly_plan"/>
           <field name="month"/>
 
@@ -28,11 +29,13 @@
         </header>
           <sheet>
                 <div class="oe_button_box" name="button_box">
-                    <button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
+                    <button class="oe_stat_button" name="open_versions"  type="object" icon="fa-wrench">
+                        <field name="version_count"  string="Versions" widget="statinfo" modifiers="{'readonly': true}"/>
                     </button>
                 </div>
             <group>
              <group>
+                 <field name="name" attrs="{'readonly': [('state', '=', 'approved')]}"/>
                 <field name="yearly_plan" attrs="{'readonly': [('state', '=', 'approved')]}"/>
                 <field name="month" attrs="{'readonly': [('state', '=', 'approved')]}"/>
              </group>
@@ -54,6 +57,11 @@
 				</page>
 			</notebook>
           </sheet>
+            <div class="oe_chatter">
+         <field name="message_follower_ids" widget="mail_followers"/>
+                 <field name="activity_ids" widget="mail_activity"/>
+         <field name="message_ids" widget="mail_thread"/>
+</div>
         </form>
       </field>
     </record>

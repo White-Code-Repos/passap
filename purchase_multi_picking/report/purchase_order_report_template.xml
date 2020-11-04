@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!--Report-->
+     <template id="picking_order_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                    <div class="page" style="font-size: 18px !important;font-family: 'Arial';direction:ltr">
+                        <t t-foreach="picking" t-as="p">
+                            <br/><br/>
+                            <span>Contact:</span>
+                            <span t-esc="p.picking_type_id.warehouse_id.partner_id.name"/>
+                            <span style="margin-left: 350px;">Phone number:</span>
+                            <span t-esc="p.picking_type_id.warehouse_id.partner_id.phone"/>
+                            <br/><br/>
+                            <table>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                </tr>
+                                <t t-foreach="p.move_lines" t-as="line">
+
+                                    <tr>
+                                        <td>
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.product_uom_qty"/>
+                                        </td>
+                                    </tr>
+
+                                </t>
+                            </table>
+                        </t>
+                        <br/><br/>
+                        <style>
+                            table {
+                            border-collapse: collapse;
+                            width: 100%;
+                            }
+
+                            th, td {
+                            text-align: left;
+                            padding: 8px;
+                            }
+
+                            tr:nth-child(even) {background-color: #f2f2f2;}
+                        </style>
+                    </div>
+
+            </t>
+        </t>
+    </template>
+
+    <report id="action_report_delivery_order"
+            model="purchase.order"
+            string="Print Purchase Order Pickings "
+            report_type="qweb-pdf"
+            name="purchase_multi_picking.picking_order_report"
+            file="purchase_multi_picking.picking_order_report"
+            attachment_use="False"
+            menu="False"
+    />
+</odoo>

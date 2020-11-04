@@ -3,12 +3,14 @@ from datetime import datetime
 
 class MonthPlane(models.Model):
     _name = 'month.plan'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     state = fields.Selection([('draft', 'Draft'), ('mangerApp', 'To Manager Approve'), ('approved', 'Approved')],
                              string='Status',
-                             required=True, readonly=True, copy=False, default='draft')
+                             required=True, readonly=True, copy=True, default='draft',track_visibility="onchange")
+    name = fields.Char('Plan Name',required=True ,track_visibility="always")
 
-    yearly_plan = fields.Many2one('year.plan','Yearly Plan' ,required=True)
+    yearly_plan = fields.Many2one('year.plan','Yearly Plan' ,required=True,track_visibility="onchange",copy=True)
     month = fields.Selection([('jan','Jan'),
                               ('feb','Feb'),
                               ('mar','Mar'),
@@ -20,9 +22,11 @@ class MonthPlane(models.Model):
                               ('sept','Sept'),
                               ('oct','Oct'),
                               ('nov','Nov'),
-                              ('dec','Dec')] ,'Month',required=True)
-    source = fields.Many2one('month.plan','Version Of',readonly=True)
-    plan_m_line_ids = fields.One2many('month.plan.line', 'month_plan_id')
+                              ('dec','Dec')] ,'Month',required=True ,track_visibility="onchange",copy=True)
+    source = fields.Many2one('month.plan','Version Of',readonly=True,copy=True)
+    plan_m_line_ids = fields.One2many('month.plan.line', 'month_plan_id',copy=True)
+    
+    version_count = fields.Integer(compute='calc_values',copy=True)
 
     # Methods
 
@@ -35,6 +39,7 @@ class MonthPlane(models.Model):
 
     @api.multi
     def action_adjust_plan(self):
+        versions = len(self.env['month.plan'].search([('source','=',self.id)]))
         list = []
         for l in self.plan_m_line_ids:
             line = [0, 0, {
@@ -46,6 +51,7 @@ class MonthPlane(models.Model):
             list.append(line)
         vals = {
             'state': 'draft',
+            'name': self.name + ' version ' + str(versions + 1),
             'yearly_plan': self.yearly_plan.id,
             'month': self.month,
             'plan_m_line_ids': list,
@@ -64,22 +70,27 @@ class MonthPlane(models.Model):
                 'name': 'Versions',
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-                'res_model': 'year.plan',
+                'res_model': 'month.plan',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
                 'domain': [('id', 'in', plan_ids.ids)],
             }
 
+    @api.multi
+    def calc_values(self):
+        for obj in self:
+            obj.version_count = len(self.env['month.plan'].search([('source', '=', obj.id)]))
+
 
 class MonthPlaneLine(models.Model):
     _name = 'month.plan.line'
 
-    business_line =fields.Many2one('account.analytic.account','Business Line')
-    quantity = fields.Integer('Quantities to supply')
-    product_id = fields.Many2one('product.product' ,'Product')
-    qty = fields.Integer('QTY')
+    business_line =fields.Many2one('account.analytic.account','Business Line',copy=True)
+    quantity = fields.Integer('Quantities to supply',copy=True)
+    product_id = fields.Many2one('product.product' ,'Product',copy=True)
+    qty = fields.Integer('QTY',copy=True)
 
-    month_plan_id = fields.Many2one('month.plan')
+    month_plan_id = fields.Many2one('month.plan',copy=True)
 
     @api.depends('month_plan_id')
     @api.onchange('business_line')

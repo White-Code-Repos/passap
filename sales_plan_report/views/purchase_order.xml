@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inher_purchase_order_view" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="egp_rate"/>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="egp_total" readonly="True"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inhirit_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                    <field name="egp_total_total"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="purchase_id" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='incoterm_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

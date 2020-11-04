@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+
+ <record id="inherit_product_search_view" model="ir.ui.view">
+        <field name="name">inherited.product.search.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+
+
+
+            <filter name="services" position='after'>
+                <filter string="Location" name="location_groupby" domain="[]"
+                        context="{'group_by' : 'location_idd'}"/>
+            </filter>
+        </field>
+    </record>
+<record id="inherit_product_list_view" model="ir.ui.view">
+        <field name="name">inherited.product.search.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position='after'>
+                <field string="Location" name="location_idd"/>
+            </field>
+        </field>
+    </record>
+
+
+      <record id="inherit_product_form_view" model="ir.ui.view">
+        <field name="name">inherited.product.search.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position='after'>
+                <field string="Location" name="location_idd"/>
+            </field>
+        </field>
+    </record>
+
+  </data>
+</odoo>

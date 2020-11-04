@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account.action_account_payments_payable" model="ir.actions.act_window">
+                   <field name="context">{'default_payment_type': 'outbound', 'default_partner_type': 'supplier'}</field>
+
+   </record>
+
+<!--         <record id="action_account_payments_payable" model="ir.actions.act_window">-->
+<!--            <field name="name">Payments</field>-->
+<!--            <field name="res_model">account.payment</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,kanban,form,graph</field>-->
+<!--            <field name="context">{'default_payment_type': 'outbound', 'default_partner_type': 'supplier', 'search_default_sequence_number_payments': 1}</field>-->
+<!--            <field name="domain">[]</field>-->
+<!--            <field name="view_id" ref="view_account_supplier_payment_tree"/>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="o_view_nocontent_smiling_face">-->
+<!--                  Register a payment-->
+<!--                </p><p>-->
+<!--                  Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.-->
+<!--                </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+            <record id="account_payment_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='payment_type']" position="after">
+<!--                        <field name="lc_expense_name" attrs="{'invisible':[('payment_type', '!=', 'expense')]}"/>-->
+                     <field name="lc_expense_id" attrs="{'invisible':[('payment_lc', '!=', 'expense')],'required':[('payment_lc', '=', 'expense')]}"/>
+                        <field name="letter_of_credit_id" invisible="1" />
+                     <field name="check_payment" invisible="1" />
+
+                    </xpath>
+                 <xpath expr="//field[@name='payment_type']" position="attributes">
+            <attribute name="attrs">{'invisible':[('check_payment', '=', True)]}</attribute>
+                 </xpath>
+                <xpath expr="//field[@name='payment_type']" position="before">
+                    <field name="sequenc_number" string="Name" attrs="{'invisible':[('check_payment', '!=', True)]}"/>
+
+            <field name="payment_lc" widget="radio" attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('check_payment', '!=', True)]}"/>
+                    </xpath>
+                 <xpath expr="//sheet" position="inside">
+                     <group>
+                         <group>
+                                         <field name="tax_account1"  attrs="{'invisible':[('check_payment', '!=', True)]}"/>
+                                         <field name="tax_account2"  attrs="{'invisible':[('check_payment', '!=', True)]}"/>
+
+
+                         </group>
+                         <group>
+                              <field name="tax_amount1"  attrs="{'invisible':[('check_payment', '!=', True)]}"/>
+                                         <field name="tax_amount2"  attrs="{'invisible':[('check_payment', '!=', True)]}"/>
+
+                         </group>
+                     </group>
+
+                    </xpath>
+                <xpath expr="//field[@name='destination_journal_id']" position="attributes">
+                    <attribute name="attrs">{'required': [('check_payment', '=', False),('payment_type', '=', 'transfer')], 'invisible': ['|',('payment_type', '!=', 'transfer'),('check_payment', '=', True)], 'readonly': [('state', '!=', 'draft')]}</attribute>
+                 </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="account_payment_inherit_tree_view" model="ir.ui.view">
+            <field name="name">Account payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='journal_id']" position="after">
+                        <field name="sequenc_number"/>
+                     <field name="lc_expense_id" string="LC Product"/>
+
+
+                    </xpath>
+
+
+            </field>
+        </record>
+
+          <record id="account_payment_search_view_custom" model="ir.ui.view">
+            <field name="name">Account Payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//search" position="inside">
+                    <field name="sequenc_number" string="letter of credit "/>
+                <filter string="letter of credit payments" name="sequence_number_payments" domain="[('check_payment','=',True)]" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

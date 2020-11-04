@@ -27,8 +27,13 @@
                 <field name="state" widget="statusbar"/>
         </header>
           <sheet>
+
                 <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" name="open_versions"  string="Versions" type="object" icon="fa-wrench">
+                    <button class="oe_stat_button" name="open_versions"  type="object" icon="fa-wrench">
+                        <field name="version_count" string="Versions" widget="statinfo" modifiers="{'readonly': true}"/>
+                    </button>
+                    <button class="oe_stat_button" name="open_monthly_plan"  type="object" icon="fa-building-o">
+                        <field name="monthly_count"  string="Monthly Plan" widget="statinfo" modifiers="{'readonly': true}"/>
                     </button>
                 </div>
             <group>
@@ -42,7 +47,7 @@
              </group>
             </group>
             <notebook>
-                <page string='Plan'  attrs="{'readonly': [('state', '=', 'approved')]}">
+                <page string='Plan' name="plan"  attrs="{'readonly': [('state', '=', 'approved')]}">
 					<field  name="plan_line_ids"  attrs="{'readonly': [('state', '=', 'approved')]}">
 						<tree editable="bottom" >
 						    <field name='analytic_account_id'/>
@@ -64,6 +69,11 @@
 				</page>
 			</notebook>
           </sheet>
+            <div class="oe_chatter">
+         <field name="message_follower_ids" widget="mail_followers"/>
+                 <field name="activity_ids" widget="mail_activity"/>
+         <field name="message_ids" widget="mail_thread"/>
+</div>
         </form>
       </field>
     </record>

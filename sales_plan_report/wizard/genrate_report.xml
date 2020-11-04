@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="genrate_form_view" model="ir.ui.view">
+            <field name="name">generate report</field>
+            <field name="model">generate.report</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="month"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="month_2"/>
+                            <field name="to_date"/>
+                        </group>
+
+                        <group>
+                            <button name="do_report"  class="btn-primary" type="object" string="Plan Report"/>
+                        </group>
+                    </sheet>
+                      <footer>
+                </footer>
+                </form>
+
+            </field>
+        </record>
+
+        <act_window id='genrate_report_wizard_action' res_model='generate.report'
+                    name='Plan Report' view_mode='form'
+                    target='new'
+                    context="{}"
+                    domain="[]"
+        />
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="year_plan_month_report_meunes" name="Sales Plan Report" parent="sale.menu_sale_report"
+                  action="genrate_report_wizard_action" sequence="3"/>
+
+    </data>
+</odoo>

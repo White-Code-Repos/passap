@@ -10,8 +10,9 @@
     'website': "http://www.codetrade.io",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['purchase'],
+    'depends': ['purchase', 'stock'],
     'data': [
+        'data/vendor_evaluation_data.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/purchase_order_view_ct.xml',

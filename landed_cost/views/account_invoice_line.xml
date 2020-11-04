@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+            <record id="account_invoice_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                     <xpath expr="//field[@name='amount_tax']" position="after">
+                        <field name="custom_total_dolar" string="Customs Amount $"/>
+
+                         <field name="custom_total_egp" string="Customs Amount EGP"/>
+
+
+                    </xpath>
+                   <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
+                        <field name="custom_percent" string="Custom Percent %"/>
+                        <field name="non_custom_percent" string="Non Custom Percent %" force_save="1" readonly="1"/>
+
+
+
+                    </xpath>
+
+
+
+
+
+
+            </field>
+        </record>
+         <record id="account_account_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account Account</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//field[@name='deprecated']" position="after">
+                        <field name="lc_account" string="LC Account"/>
+
+
+
+
+                    </xpath>
+
+
+
+
+
+
+            </field>
+        </record>
+
+        <record id="account_journal_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account Journal</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//field[@name='type']" position="after">
+                        <field name="lc_account" string="LC Journal"/>
+                    </xpath>
+
+
+
+
+
+
+            </field>
+        </record>
+    </data>
+</odoo>

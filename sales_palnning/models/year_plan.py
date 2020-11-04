@@ -3,14 +3,17 @@ from datetime import datetime
 
 class YearPlane(models.Model):
     _name = 'year.plan'
+    _inherit =['mail.thread', 'mail.activity.mixin']
     state = fields.Selection([('draft', 'Draft'), ('ceoApp', 'To CEO Approve'),('approved','Approved')], string='Status',
-                             required=True, readonly=True, copy=False, default='draft')
-    name = fields.Char('Plan Name',required=True)
-    year = fields.Selection([(num, str(num)) for num in range(1900, (datetime.now().year)+1 )], 'Year')
-    responsible = fields.Many2one('res.partner','Responsible')
-    plan_line_ids = fields.One2many('year.plan.month', 'plan_id')
+                             required=True, readonly=True, copy=True, default='draft',track_visibility="onchange")
+    name = fields.Char('Plan Name',required=True,track_visibility="always")
+    year = fields.Selection([(num, str(num)) for num in range(1900, (datetime.now().year)+1 )], 'Year',track_visibility="onchange")
+    responsible = fields.Many2one('res.partner','Responsible',track_visibility="always",copy=True)
+    plan_line_ids = fields.One2many('year.plan.month', 'plan_id',copy=True)
 
-    source = fields.Many2one('year.plan','Version Of',readonly=True)
+    source = fields.Many2one('year.plan','Version Of',readonly=True,track_visibility="onchange",copy=True)
+    version_count = fields.Integer(compute='calc_values',track_visibility="onchange",copy=True)
+    monthly_count = fields.Integer(compute='calc_values',track_visibility="onchange",copy=True)
 #     Methods
 
     @api.multi
@@ -67,11 +70,35 @@ class YearPlane(models.Model):
             'domain': [('id', 'in', plan_ids.ids)],
         }
 
+    @api.multi
+    def open_monthly_plan(self):
+        plan_ids = self.env['month.plan'].search([('yearly_plan', '=', self.id)])
+        list = []
+        for id in plan_ids:
+            list.append(id)
+
+        return {
+            'name': 'Monthly Plan',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'month.plan',
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            'domain': [('id', 'in', plan_ids.ids)],
+        }
+    @api.multi
+    def calc_values(self):
+        for obj in self:
+            obj.monthly_count = len(self.env['month.plan'].search([('yearly_plan', '=', obj.id)]))
+            obj.version_count = len(self.env['year.plan'].search([('source','=',obj.id)]))
+
+
+
 class YearPlaneMonth(models.Model):
 
     _name = 'year.plan.month'
 
-    analytic_account_id = fields.Many2one('account.analytic.account','Analytic Account')
+    analytic_account_id = fields.Many2one('account.analytic.account','Analytic Account',copy=True)
     jan = fields.Integer('Jan.')
     feb = fields.Integer('Feb.')
     mar = fields.Integer('Mar.')
@@ -84,8 +111,8 @@ class YearPlaneMonth(models.Model):
     oct = fields.Integer('Oct.')
     nov = fields.Integer('Nov.')
     dec = fields.Integer('Dec.')
-    total = fields.Integer('Total',compute='get_total')
-    plan_id = fields.Many2one('year.plan')
+    total = fields.Integer('Total',compute='get_total',copy=True)
+    plan_id = fields.Many2one('year.plan',copy=True)
 
     @api.multi
     def get_total(self):
