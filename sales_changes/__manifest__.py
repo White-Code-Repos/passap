@@ -16,6 +16,7 @@
     'version': '0.1',
     'depends':['sale'],
     'data': [
+
         'views/sale_order.xml',
 
     ],

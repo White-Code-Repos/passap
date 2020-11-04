@@ -4,3 +4,6 @@ from . import purchase_order
 from . import account_invoice_line
 from . import letter_of_credite
 from . import account_payment
+from . import account_journal
+from . import account_move_line
+

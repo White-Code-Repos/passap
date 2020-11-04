@@ -39,6 +39,7 @@
         'security/stock_resupply_request_security.xml',
         'security/ir.model.access.csv',
         'views/stock_resupply_request_view.xml',
+        'views/stock_picking.xml',
     ],
     'test': [],
     'installable':True,

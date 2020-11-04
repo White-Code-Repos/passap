@@ -14,7 +14,7 @@
 <!--                    </xpath>-->
 
                     <xpath expr="//field[@name='date_order']" position="after">
-                        <field name="letter_of_credit" string="Letter Of Credit"/>
+                        <field name="letter_of_credit" string="Foreign PO"/>
 
 
                     </xpath>
@@ -38,10 +38,20 @@
 
 
 
-
-
-
             </field>
         </record>
+         <record id="purchase_order_inherited_second_form_view" model="ir.ui.view">
+            <field name="name">purchase order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+            <field name="arch" type="xml">
+
+                    <xpath expr="//field[@name='incoterm_id']" position="attributes">
+                        <attribute name="attrs">{'required':[('letter_of_credit', '=', True)]}</attribute>
+
+
+                    </xpath>
+            </field>
+         </record>
     </data>
 </odoo>

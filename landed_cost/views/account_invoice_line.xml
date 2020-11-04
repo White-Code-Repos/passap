@@ -7,7 +7,13 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
+                     <xpath expr="//field[@name='amount_tax']" position="after">
+                        <field name="custom_total_dolar" string="Customs Amount $"/>
 
+                         <field name="custom_total_egp" string="Customs Amount EGP"/>
+
+
+                    </xpath>
                    <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
                         <field name="custom_percent" string="Custom Percent %"/>
                         <field name="non_custom_percent" string="Non Custom Percent %" force_save="1" readonly="1"/>

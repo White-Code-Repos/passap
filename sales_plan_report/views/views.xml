@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+
+
+        <record id="inher_yearly_plane_form" model="ir.ui.view">
+            <field name="name">Yearly Plane form view</field>
+            <field name="model">year.plan</field>
+            <field name="inherit_id" ref="sales_palnning.yearly_plane_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='plan_line_ids']/tree/field[@name='analytic_account_id']" position="before">
+                    <field name="year"/>
+                    <field name="company_id2"/>
+                </xpath>
+
+
+                <xpath expr="//button[@name='action_submit_plan']" position="before">
+                    <field name="is_lines" invisible="1"/>
+                    <button name="create_acu_diff" type="object" string="Create Lins" attrs="{'invisible': [('is_lines', '=', True)]}" />
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="year_plan_month_report" model="ir.ui.view">
+            <field name="name">year.plan.month.report</field>
+            <field name="model">year.plan.month</field>
+            <field name="arch" type="xml">
+                <!--<button name="compute_actual_qty_sales" type="object" string="ObjectButton"/>-->
+                <!--<header>-->
+                <!--<button name="compute_actual_qty_sales" type="object" string="ObjectButton"/>-->
+                <!--</header>-->
+                <tree string="Company Year Plane" create="0">
+                    <field name="name"/>
+                    <!--<button name="compute_actual_qty_sales" type="object" string="ObjectButton"/>-->
+                    <field name='analytic_account_id'/>
+                    <field name='company_id2'/>
+                    <field name="year"/>
+                    <field name='jan'/>
+                    <field name='feb'/>
+                    <field name='mar'/>
+                    <field name='apr'/>
+                    <field name='may'/>
+                    <field name='june'/>
+                    <field name='july'/>
+                    <field name='aug'/>
+                    <field name='sept'/>
+                    <field name='oct'/>
+                    <field name='nov'/>
+                    <field name='dec'/>
+                    <field name='total'/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="year_plan_month_report_Action" model="ir.actions.act_window">
+            <field name="name">Year Plan Month Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">year.plan.month</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

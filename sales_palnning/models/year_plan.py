@@ -3,16 +3,17 @@ from datetime import datetime
 
 class YearPlane(models.Model):
     _name = 'year.plan'
+    _inherit =['mail.thread', 'mail.activity.mixin']
     state = fields.Selection([('draft', 'Draft'), ('ceoApp', 'To CEO Approve'),('approved','Approved')], string='Status',
-                             required=True, readonly=True, copy=False, default='draft')
-    name = fields.Char('Plan Name',required=True)
-    year = fields.Selection([(num, str(num)) for num in range(1900, (datetime.now().year)+1 )], 'Year')
-    responsible = fields.Many2one('res.partner','Responsible')
-    plan_line_ids = fields.One2many('year.plan.month', 'plan_id')
+                             required=True, readonly=True, copy=True, default='draft',track_visibility="onchange")
+    name = fields.Char('Plan Name',required=True,track_visibility="always")
+    year = fields.Selection([(num, str(num)) for num in range(1900, (datetime.now().year)+1 )], 'Year',track_visibility="onchange")
+    responsible = fields.Many2one('res.partner','Responsible',track_visibility="always",copy=True)
+    plan_line_ids = fields.One2many('year.plan.month', 'plan_id',copy=True)
 
-    source = fields.Many2one('year.plan','Version Of',readonly=True)
-    version_count = fields.Integer(compute='calc_values')
-    monthly_count = fields.Integer(compute='calc_values')
+    source = fields.Many2one('year.plan','Version Of',readonly=True,track_visibility="onchange",copy=True)
+    version_count = fields.Integer(compute='calc_values',track_visibility="onchange",copy=True)
+    monthly_count = fields.Integer(compute='calc_values',track_visibility="onchange",copy=True)
 #     Methods
 
     @api.multi
@@ -97,7 +98,7 @@ class YearPlaneMonth(models.Model):
 
     _name = 'year.plan.month'
 
-    analytic_account_id = fields.Many2one('account.analytic.account','Analytic Account')
+    analytic_account_id = fields.Many2one('account.analytic.account','Analytic Account',copy=True)
     jan = fields.Integer('Jan.')
     feb = fields.Integer('Feb.')
     mar = fields.Integer('Mar.')
@@ -110,8 +111,8 @@ class YearPlaneMonth(models.Model):
     oct = fields.Integer('Oct.')
     nov = fields.Integer('Nov.')
     dec = fields.Integer('Dec.')
-    total = fields.Integer('Total',compute='get_total')
-    plan_id = fields.Many2one('year.plan')
+    total = fields.Integer('Total',compute='get_total',copy=True)
+    plan_id = fields.Many2one('year.plan',copy=True)
 
     @api.multi
     def get_total(self):

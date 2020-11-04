@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="seq_vendor_evaluation" model="ir.sequence">
+            <field name="name">Vendor Evaluation</field>
+            <field name="code">vendor.evaluation</field>
+            <field name="prefix">EV-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

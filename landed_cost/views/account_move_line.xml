@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+            <record id="account_move_inherit_form_view" model="ir.ui.view">
+            <field name="name">Account Invoice</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                        <field name="product_id" string="LC Product"/>
+<!--                       <field name="check_journal" />-->
+
+                    </xpath>
+
+            </field>
+        </record>
+
+         <record id="account_move_inherit_tree_view" model="ir.ui.view">
+            <field name="name">Account move line</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//tree/field[@name='name']" position="after">
+                        <field name="product_id" string="LC Product"/>
+<!--                       <field name="check_journal" />-->
+
+                    </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

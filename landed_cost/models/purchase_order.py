@@ -15,63 +15,23 @@ class PURCHASEORDER(models.Model):
 
     @api.multi
     def button_confirm(self):
-        if self.letter_of_credit == False:
-            for order in self:
-                if order.state not in ['draft', 'sent']:
-                    continue
-                order._add_supplier_to_product()
-                # Deal with double validation process
-                if order.company_id.po_double_validation == 'one_step' \
-                        or (order.company_id.po_double_validation == 'two_step' \
-                            and order.amount_total < self.env.user.company_id.currency_id._convert(
-                            order.company_id.po_double_validation_amount, order.currency_id, order.company_id,
-                            order.date_order or fields.Date.today())) \
-                        or order.user_has_groups('purchase.group_purchase_manager'):
-                    order.button_approve()
-                else:
-                    order.write({'state': 'to approve'})
-            return True
+        result = super(PURCHASEORDER, self).button_confirm()
+        if self.letter_of_credit == True:
+            print('hello if')
+            account_record = self.env['account.journal'].search([('lc_account', '=', True)])
+
+            vals = {'purchase_id': self.id,
+                    'state': 'draft',
+                    'landed_cost_check': True,
+                    'account_journal_id': account_record.id,
+                    }
+            self.env['stock.landed.cost'].create(vals)
+            self.env['letter.credit'].create(vals)
+
+
+            return result
         else:
-            for order in self:
-                if order.state not in ['draft', 'sent']:
-                    continue
-                order._add_supplier_to_product()
-                # Deal with double validation process
-                if order.company_id.po_double_validation == 'one_step' \
-                        or (order.company_id.po_double_validation == 'two_step' \
-                            and order.amount_total < self.env.user.company_id.currency_id._convert(
-                            order.company_id.po_double_validation_amount, order.currency_id, order.company_id,
-                            order.date_order or fields.Date.today())) \
-                        or order.user_has_groups('purchase.group_purchase_manager'):
-                    order.button_approve()
-                else:
-
-                    order.write({'state': 'to approve'})
-                vals = {'purchase_id': self.id,
-                        'state': 'draft',
-                        }
-                self.env['letter.credit'].create(vals)
-                account_record = self.env['account.journal'].search([('lc_account', '=', True)])
-
-                vals = {'purchase_id': self.id,
-                        'state': 'draft',
-                        'account_journal_id':account_record.id,
-                        }
-                self.env['stock.landed.cost'].create(vals)
-
-                # action = self.env.ref('stock_landed_costs.action_stock_landed_cost')
-                # result = action.read()[0]
-                # result['views'] = [(self.env.ref('stock_landed_costs.view_stock_landed_cost_form').id, 'form')]
-                # result['context'] = {'default_purchase_id': self.id, 'default_state': 'draft', }
-                # result.update({'view_type': 'form',
-                #                'view_mode': 'form',
-                #                'target': 'current',
-                #                })
-                #
-                # return result
-
-
-            return True
+           return result
 
 
 

@@ -16,18 +16,17 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="open_payment_view" type="object" string="Payment" class="btn-primary"  />
-                        <button name="button_confirm" type="object" string="Confirm" states="draft"  class="btn-primary" />
-                        <button name="button_confirm_lc" type="object" string="confirm Land cost" states="progress"  class="btn-primary" />
+                        <button name="open_payment_view" type="object" string="Payment" class="btn-primary" states="draft,progress,landed" />
+<!--                        <button name="%(account.action_account_invoice_payment)d" type="action" states="draft" string="Register Payment"  class="oe_highlight"/>-->
 
-                        <button name="button_lc_validate" type="object" string="Land cost Validate" states="confirm" class="btn-primary" />
+<!--                        <button name="button_lc_validate" type="object" string="Land cost Validate" states="confirm" class="btn-primary" />-->
 
                         <button name="button_validate" type="object" string="Validated" states="landed" class="btn-primary" />
-                        <button name="button_cancel" type="object" string="Cancel" states="landed,progress,confirm,cancel,validated"  class="btn-primary" />
-                        <button name="button_draft" type="object" string="Rest Draft" states="landed,progress,confirm,cancel,validated" class="btn-primary" />
+                        <button name="button_cancel" type="object" string="Cancel" states="landed,progress,cancel,validated"  class="btn-primary" />
+<!--                        <button name="button_draft" type="object" string="Rest Draft" states="landed,progress,confirm,cancel,validated" class="btn-primary" />-->
 
                           <field name="state" widget="statusbar"
-                                        statusbar_visible="draft,progress,confirm,landed,validated,cancel"/>
+                                        statusbar_visible="draft,progress,landed,validated,cancel"/>
                     </header>
 
                     <sheet>
@@ -48,11 +47,19 @@
                                <field name="lc_number" string="LC Number"/>
                         <field name="start_date" string="Start Date"/>
                         <field name="end_date" string="End Date"/>
+                                 <field name="total_lc_payments" string="Total LC Payment" />
+                                <field name="total_lc_Expense" string="Total LC Expense"/>
+                                <field name="total_lc" string="Total LC(Payment+Expense)"/>
+
                             </group>
                             <group>
-                                <field name="purchase_id" string="purchase order"/>
-                        <field name="invoice_id" string="Bill"/>
+                                <field name="purchase_id" string="purchase order" />
+                        <field name="invoice_id" string="Bill"  attrs="{'required':[('state', 'in', 'landed')]}" />
                         <field name="inco_term" string="Inco Term"/>
+
+                                  <field name="percentage" string="Percentage" />
+                        <field name="total" string="Total Purchase Amount"/>
+                                 <field name="invoice_ids" invisible="1" />
                             </group>
                         </group>
                     
@@ -70,12 +77,17 @@
             <field name="model">letter.credit</field>
 
             <field name="arch" type="xml">
-            <tree>
+            <tree  decoration-danger="end_date and (current_date > end_date)">
              <field name="name" string="Name"/>
                 <field name="state" string="State"/>
                  <field name="lc_number" string="LC Number"/>
+                <field name="name" string="LC Sequence"/>
                         <field name="start_date" string="Start Date"/>
-                        <field name="end_date" string="End Date"/>
+                        <field name="end_date" string="End Date" />
+                 <field name="total_lc_payments" string="Total LC Payment" />
+                                <field name="total_lc_Expense" string="Total LC Expense"/>
+                                <field name="total_lc" string="Total LC(Payment+Expense)"/>
+
             </tree>
             </field>
         </record>

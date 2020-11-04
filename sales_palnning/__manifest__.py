@@ -14,6 +14,7 @@
 
     'category': 'Uncategorized',
     'version': '0.1',
+    'depends':['base','mail'],
     'data': [
         'security/ceo_group.xml',
          'security/ir.model.access.csv',
