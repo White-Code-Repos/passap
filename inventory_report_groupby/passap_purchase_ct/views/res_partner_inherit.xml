@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//page[4]" position="after">
+              <page name="g_info" string="G.INFO">
+                  <group>
+                      <group>
+                          <field name="commercial_register"/>
+                          <field name="file_tax"/>
+                          <field name="industrial_register"/>
+                      </group>
+                      <group>
+                          <field name="exp"/>
+                          <field name="value_reg_certificate"/>
+                          <field name="exempt_non"/>
+                      </group>
+
+                  </group>
+
+              </page>
+          </xpath>
+        </field>
+    </record>
+
+
+</odoo>
