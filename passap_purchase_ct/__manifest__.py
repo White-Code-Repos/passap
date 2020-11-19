@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Passap Purchase",
+    'name': "Passap Purchase ct",
 
     'summary': """
         Passap Purchase Customisation""",
