@@ -41,10 +41,10 @@ odoo.define('app_odoo_customize.UserMenu', function (require) {
                     lang_list += '<a role="menuitem" href="#" class="dropdown-item" data-lang-menu="lang" data-lang-id="' + lang['code']
                         + '"><img class="flag" src="app_odoo_customize/static/src/img/flags/' + lang['code'] + '.png"/>' + lang['name'] + a + '</a>';
                 });
-                lang_list += '<div role="separator" class="dropdown-divider"/>'
+                lang_list += '<div role="separator" class="dropdown-divider"/>';
                 setTimeout( function() {
                     $('switch-lang').replaceWith(lang_list);
-                }, 1000)
+                }, 1000);
             })
 
             //取参数
@@ -112,7 +112,7 @@ odoo.define('app_odoo_customize.UserMenu', function (require) {
                 });
                 //控制debug显示
                 var mMode = 'normal';
-                if (window.location.href.indexOf('debug') != -1)
+                if (window.location.href.indexOf('debug=1') != -1)
                     mMode = 'debug';
                 if (window.location.href.indexOf('debug=assets') != -1)
                     mMode = 'assets';
@@ -141,7 +141,7 @@ odoo.define('app_odoo_customize.UserMenu', function (require) {
             window.location = $.param.querystring(window.location.href, 'debug=assets');
         },
         _onMenuQuitdebug: function () {
-            window.location.search = "?";
+            window.location = $.param.querystring(window.location.href, 'debug=0');
         },
         _onMenuDocumentation_dev: function () {
             window.open(documentation_dev_url, '_blank');
