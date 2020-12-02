@@ -7,6 +7,7 @@ from odoo import api, fields, models, _
 class BaseLanguageInstall(models.TransientModel):
     _inherit = "base.language.install"
 
+    @api.multi
     def lang_install(self):
         self.ensure_one()
         if self.overwrite:
@@ -14,5 +15,4 @@ class BaseLanguageInstall(models.TransientModel):
                 delete from ir_translation
                 where lang=%s
                 """, (self.lang,))
-            self.env.cr.commit()
         return super(BaseLanguageInstall, self).lang_install()
