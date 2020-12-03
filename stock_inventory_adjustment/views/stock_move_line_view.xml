@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record id="stock_move_line_form_inherited_view" model="ir.ui.view">
+            <field name="name">stock.move.line.form.inherited.view</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='reference']" position="before">
+                    <field name="new_date" invisible="1"/>
+                    <field name="new_date2"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_move_line_inherited_tree" model="ir.ui.view">
+            <field name="name">stock.move.line.inherited.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='reference']" position="before">
+                    <field name="new_date" invisible="1"/>
+                    <field name="new_date2"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
